@@ -61,21 +61,28 @@ app.use(cookieParser());
 ========================= */
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // allow server-to-server & Postman
+    origin: function (origin, callback) {
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS blocked: ${origin}`));
+        return callback(null, true);
       }
+
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Cache-Control",
+      "Pragma",
+    ],
+    exposedHeaders: ["Set-Cookie"],
   })
 );
+
+app.options("*", cors());
 
 /* =========================
    LOGGING
