@@ -39,7 +39,7 @@ app.set("trust proxy", 1);
 ========================= */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://theblackpearl-steel.vercel.app",
+  "https://theblackpearl-seven.vercel.app/",
   "https://www.yourdomain.com",
 ];
 
